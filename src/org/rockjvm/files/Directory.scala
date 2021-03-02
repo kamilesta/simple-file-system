@@ -1,5 +1,7 @@
 package org.rockjvm.files
 
+import org.rockjvm.filesystem.FilesystemException
+
 import scala.annotation.tailrec
 
 class Directory(override val parentPath: String,
@@ -33,6 +35,8 @@ class Directory(override val parentPath: String,
     else findEntry(path.head).asDirectory.findDescendant(path.tail)
 
   def asDirectory: Directory = this
+
+  override def asFile: File = throw new FilesystemException("Cannot be converted to file")
 }
 
 object Directory {
